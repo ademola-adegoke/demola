@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Bootstrap Ass/bootstrap.css">
+    <style>
+        body{
+            background-color: yellow;
+        }
+        hr {
+            border: 1px solid;
+            margin-top: 20px;
+        }
+        h1 {
+            color: blue;
+        }
+        table,tr,td {
+            border: 2px solid;
+            border-collapse: collapse;
+            font-size: 15px;
+            font-weight: bold;
+            color: blue;
+            text-align: center;
+        }
+    </style>
+</head>
+<body onload="displayCart()">
+    <div class="col-lg-7 col-md-7 col-sm-9 mt-lg-4 mt-md-4 mt-sm-2 mx-auto shadow rounded p-3">
+        <h1><marquee behavior="" direction="">WELCOME TO ADEMOLA VENTURES</marquee></h1>
+        <input type="text" placeholder="Enter an item" id="user" class="form-control my-2">
+        <input type="number" placeholder="Enter the Amount" id="user1" class="form-control my-2">
+        <input type="number" placeholder="Enter the Quantity" id="user2" class="form-control my-2">
+        <button onclick="addTOCart()" class="btn btn-success">Add to cart🛒</button>
+        <hr>
+        <table id="disp">
+            <tr>
+                <td>S/N</td>
+                <td>Item</td>
+                <td>Amount</td>
+                <td>Action</td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        let cart = []
+        const addTOCart =() =>{
+            let carts = {
+                item: user.value,
+                amount: "$" + user1.value,
+                quantity: user2.value
+            }
+            if(user.value == ""){
+                alert("Input Item")
+            }
+            else {
+                cart.push(carts)
+                user.value = ""
+                user1.value = ""
+                user2.value = ""
+                displayCart()
+                console.log(cart)
+            } 
+        }
+
+        const displayCart=() =>{
+            // alert("izz working")
+            disp.innerHTML = `
+                <tr style="color: black;font-weight: bold;">
+                    <td style="padding: 10px;">S/N</td>
+                    <td style="padding: 10px; width: 30vw;text-align: center;">ITEMs</td>
+                    <td style="padding: 10px; width: 12vw;">AMOUNT</>
+                        <td style="padding: 10px; width: 12vw;">QUANTITY</>
+                    <td style="padding: 10px; text-align: center;width: 20vw;">ACTIONS</td>
+                </tr>
+            `
+            for (var index = 0; index < cart.length; index++) {
+                // console.log(index)
+                console.log(cart[index])
+                disp.innerHTML += `
+                <tr>
+                    <td style="padding: 10px;">${index +1}</td>
+                    <td style="padding: 10px;width: 20vw;">${cart[index].item}</td>
+                    <td style="padding: 10px; width: 15vw">${cart[index].amount}</>
+                        <td style="padding: 10px; width: 15vw">${cart[index].quantity}</>
+                    <td><button style="background-color: red;padding: 7px;margin: 7px;color: blue;border-radius: 5px;border: 2px solid green;font-weight: bold;" onclick="deleteItem(${index})">Dellete</button>
+                    <button style="background-color: yellow;padding: 7px 18px 7px 18px;margin: 7px;color: blue;border-radius: 5px;border: 2px solid green;font-weight: bold;" onclick="editItem(${index})">Edit</button></td>
+                </tr>
+                `
+            }
+        }
+        const deleteItem =(userIndex) =>{
+            // alert(userIndex)
+            cart.splice(userIndex,1)
+            displayCart()
+            console.log(cart)
+        }
+        const editItem =(userIndex) =>{
+            // alert("Are you sure you want to Change Your Item")
+            let replacement = prompt("Which Item do you want to Replace To")
+            cart.splice(userIndex,1,replacement)
+            displayCart()
+            console.log(cart)
+        }
+    </script>
+</body>
+</html>
